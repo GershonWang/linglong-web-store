@@ -28,8 +28,8 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 
     <!-- pagination -->
     <div class="pagination-body">
-      <el-pagination @current-change="nextClick" background layout="prev, pager, next" :page-size="size"
-        :hide-on-single-page="true" :total="total">
+      <el-pagination @current-change="nextClick" background layout="total, prev, pager, next" :page-size="size"
+        :hide-on-single-page="true" :total="total" >
       </el-pagination>
     </div>
     <!-- pagination -->
@@ -68,7 +68,8 @@ export default defineComponent({
     const total = ref(0);
     const size = 24;
     const service = axios.create({
-      baseURL: import.meta.env.VITE_APP_AXIOS_BASEURL, // url = base url + request url
+      // baseURL: import.meta.env.VITE_APP_AXIOS_BASEURL, // url = base url + request url
+      baseURL: '/api', // url = base url + request url
       timeout: 10000, // request timeout
     });
     const { pageview } = useGtag();
@@ -86,28 +87,29 @@ export default defineComponent({
         })
         .then(async (response) => {
           total.value = response.data.data.total;
-          const list = response.data.data.list.filter(app => !app.icon.endsWith("application-x-executable.svg"))
+          appList.value = response.data.data.list;
+          // const list = response.data.data.list.filter(app => !app.icon.endsWith("application-x-executable.svg"))
           // 因为有部分应用没有图标不利于演示，暂时隐藏
-          if (list.length < 24) {
-            const randomPage = Math.floor(Math.random() * 20) + 20
-            const resp = await service
-              .get<AppsResponse>(`/api/v0/web-store/apps`, {
-                params: {
-                  page: randomPage,
-                  size: pageSize,
-                  repo: 'stable',
-                  channel: 'main',
-                },
-              })
-            list.push(...resp.data.data.list.filter(app => !app.icon.endsWith("application-x-executable.svg")))
-          }
-          appList.value = list.slice(0, size);
+          // if (list.length < 24) {
+          //   const randomPage = Math.floor(Math.random() * 20) + 20
+          //   const resp = await service
+          //     .get<AppsResponse>(`/api/v0/web-store/apps`, {
+          //       params: {
+          //         page: randomPage,
+          //         size: pageSize,
+          //         repo: 'stable',
+          //         channel: 'main',
+          //       },
+          //     })
+          //   list.push(...resp.data.data.list.filter(app => !app.icon.endsWith("application-x-executable.svg")))
+          // }
+          // appList.value = list.slice(0, size);
           dataLoadingFlag.value = false;
         })
         .catch(function (error) {
           console.log(error);
         });
-    };
+    }
     onMounted(() => getList());
     return {
       appList,
