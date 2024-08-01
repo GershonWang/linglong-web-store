@@ -81,8 +81,13 @@ export default defineComponent({
 
 <style scoped>
 .app-card {
-  width: 320px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 224px;
   height: 224px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  padding-top: 15px;
 }
 
 .app-card-control {

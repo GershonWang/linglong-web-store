@@ -153,6 +153,8 @@ interface App {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  /* background-color: #6C6C6D; */
+  background-image: url('https://linglong.dev/wp-content/uploads/2024/07/%E5%AD%B5%E5%8C%96-bg.png');
 }
 
 .topbar {
@@ -166,6 +168,9 @@ interface App {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  
+  background: rgba(255, 255, 255, 0.1); /* 轻微的白色透明背景 */
+  backdrop-filter: blur(8px); /* 应用背景模糊效果 */
 }
 
 .topbar>.el-input {
@@ -181,11 +186,15 @@ interface App {
   margin: 1% 5% 1% 5%;
   flex: 1 1 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 320px);
+  grid-template-columns: repeat(auto-fit, 224px);
   gap: 2em;
   align-items: center;
   justify-content: center;
   text-align: center;
+  border-radius: 10px;
+  position: relative; /* 用于绝对定位子div */
+  background: rgba(255, 255, 255, 0.1); /* 轻微的白色透明背景 */
+  backdrop-filter: blur(8px); /* 应用背景模糊效果 */
 }
 
 .pagination-body {
